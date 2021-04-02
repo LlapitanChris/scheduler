@@ -12,6 +12,8 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
+
+
         <form method="POST" action="{{ route('login') }}">
             @csrf
 
@@ -51,6 +53,13 @@
                     {{ __('Log in') }}
                 </x-button>
             </div>
+            <p>
+               admin: admin_ako@mail.com  pass: admin_ako
+               <br>
+               teacher: camille@mail.com pass: camille123
+               <br>
+               teacher: nica@mail.com pass: nica123123
+            </p>
         </form>
     </x-auth-card>
 </x-guest-layout>
