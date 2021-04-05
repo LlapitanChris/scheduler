@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\Schedule;
@@ -142,8 +143,27 @@ class ScheduleController extends Controller
     	}
     }
 
-    public function dashboard(){
-    	$availableSchedules = Schedule::all();
+    public function dashboard(Request $request){
+        // dd($request->search);
+        $availableSchedules = [];
+        if($request->search === null){
+        	$availableSchedules = Schedule::all();
+
+        } else{
+            $availableSchedules = Schedule::where('day', '=', $request->search)
+            ->orWhere('timeStarts', '=', $request->search)
+            ->orWhere('timeEnds', '=', $request->search)
+            ->orWhere(function($query){
+                $query->select('levelName')->from('levels')->whereColumn('levels.id', 'level_id');
+            }, $request->search)
+            ->orWhere(function($query){
+                $query->select('programName')->from('programs')->whereColumn('programs.id', 'program_id');
+            }, $request->search)
+            ->orWhere(function($query){
+                $query->select('name')->from('users')->whereColumn('users.id', 'user_id');
+            }, $request->search)
+            ->get();
+        }
 
     	return view('dashboard', compact('availableSchedules'));
     }

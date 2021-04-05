@@ -9,7 +9,17 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
+                  <form method="GET" action="/dashboard">
+                    @csrf
+                    <div class="row justify-content-md-center">
+                      <div class="col-md-6">
+                        <input type="text" name="search" class="form-control" placeholder="Search Schedule" aria-label="Search">
+                      </div>
+                      <div class="col-md-2">
+                        <button class="btn btn-primary" type="submit">Search</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
             </div>
         </div>
