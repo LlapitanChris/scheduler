@@ -15,7 +15,11 @@ class Schedule extends Model
     	return $this->belongsTo(User::class);
     }
 
-    public function subjects(){
-    	return $this->belongsToMany(Subject::class);
+    public function program(){
+    	return $this->belongsTo(Program::class);
+    }
+
+    public function level(){
+    	return $this->belongsTo(Level::class);
     }
 }

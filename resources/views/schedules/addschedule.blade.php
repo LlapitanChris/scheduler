@@ -17,13 +17,38 @@
 		    <div id="teacher" class="form-text">Choose a teacher to schedule</div>
 		  </div>
 		  <div class="mb-3">
-		    <label for="schedDay" class="form-label">Day:</label>
-		    <select class="form-select" aria-label="Default select example" name="days" id="days">
+		    <label for="teacher" class="form-label">Level Name:</label>
+		    <select class="form-select" aria-label="Default select example" name="level" id="teacher">
+			    @foreach($levels as $level)
+			    	<option value="{{$level->id}}"> {{$level->levelNo}} - {{$level->levelName}}</option>
+			    @endforeach
+		    </select>
+		    <div id="teacher" class="form-text">Choose a level to schedule</div>
+		  </div>
+		  <div class="mb-3">
+		    <label for="teacher" class="form-label">Program name:</label>
+		    <select class="form-select" aria-label="Default select example" name="program" id="teacher">
+			    @foreach($programs as $program)
+			    	<option value="{{$program->id}}">{{$program->programName}}</option>
+			    @endforeach
+		    </select>
+		    <div id="teacher" class="form-text.">Choose a program to schedule</div>
+		  </div>
+		  <div class="row justify-content-md-center pr-4 pl-4">  	
+		  	@foreach($days as $day)
+			  <div class="form-check col-md-4">
+			    <input class="form-check-input" name="days[]" type="checkbox" value="{{$day}}">
+			    <label for="schedDay" class="form-label">{{$day}}</label>
+			  </div>
+		    @endforeach
+		  </div>
+		    {{-- <label for="schedDay" class="form-label">Day:</label> --}}
+		   {{--  <select class="form-select" aria-label="Default select example" name="days" id="days">
 			    @foreach($days as $day)
 			    	<option value="{{$day}}">{{$day}}</option>
 			    @endforeach
-		    </select>
-		  </div>
+		    </select> --}}
+
 		  <div class="mb-3">
 		    <label for="timeStart" class="form-label">Starting time:</label>
 		    <input type="time" id="startTime" value="07:00" name="startTime" min="09:00" max="18:00" class="form-control" id="timeStart" aria-describedby="timeStart" required>

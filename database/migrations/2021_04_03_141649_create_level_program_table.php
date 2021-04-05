@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateScheduleSubjectTable extends Migration
+class CreateLevelProgramTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,19 +13,19 @@ class CreateScheduleSubjectTable extends Migration
      */
     public function up()
     {
-        Schema::create('schedule_subject', function (Blueprint $table) {
+        Schema::create('level_program', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('schedule_id');
-            $table->foreignId('subject_id');
+            $table->foreignId('level_id');
+            $table->foreignId('program_id');
             $table->timestamps();
 
-             $table->foreign('schedule_id')
+            $table->foreign('level_id')
             ->references('id')
-            ->on('schedules');
+            ->on('levels');
 
-             $table->foreign('subject_id')
+            $table->foreign('program_id')
             ->references('id')
-            ->on('subjects');
+            ->on('programs');
         });
     }
 
@@ -36,6 +36,6 @@ class CreateScheduleSubjectTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('schedule_subject');
+        Schema::dropIfExists('level_program');
     }
 }

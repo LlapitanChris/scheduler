@@ -19,12 +19,23 @@ class CreateSchedulesTable extends Migration
             $table->text('day');
             $table->time('timeStarts');
             $table->time('timeEnds');
+            $table->foreignId('level_id');
+            $table->foreignId('program_id');
             $table->integer('slots')->default(20);
             $table->softDeletes();
             $table->timestamps();
+
             $table->foreign('user_id')
             ->references('id')
             ->on('users');
+
+            $table->foreign('level_id')
+            ->references('id')
+            ->on('levels');
+
+            $table->foreign('program_id')
+            ->references('id')
+            ->on('programs');
         });
     }
 

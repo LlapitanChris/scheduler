@@ -5,11 +5,15 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Subject extends Model
+class Program extends Model
 {
     use HasFactory;
 
     public function schedules(){
-    	return $this->belongsToMany(Schedules::class);
+    	return $this->hasMany(Schedule::class);
+    }
+
+    public function levels(){
+    	return $this->belongsToMany(Level::class);
     }
 }

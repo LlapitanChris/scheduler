@@ -23,7 +23,7 @@
                       <th scope="col">Teacher</th>
                       <th scope="col">Day</th>
                       <th scope="col">Time</th>
-                      <th scope="col">Subject</th>
+                      <th scope="col">Program</th>
                       <th scope="col">Level</th>
                       <th scope="col">Slots Available</th>
                     </tr>
@@ -34,8 +34,8 @@
                           <td>{{$schedules->user->name}}</td>
                           <td>{{$schedules->day}}</td>
                           <td>{{$schedules->timeStarts}} to {{$schedules->timeEnds}}</td>
-                          <td>---</td>
-                          <td>---</td>
+                          <td>{{$schedules->program->programName}}</td>
+                          <td>{{$schedules->level->levelNo}} ({{$schedules->level->levelName}})</td>
                           <td>{{$schedules->slots}}</td>
                         </tr>
                     @endforeach
