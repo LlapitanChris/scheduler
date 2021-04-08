@@ -19,6 +19,8 @@ Route::get('/', function () {
 });
 
 Route::get('/schedules', [ScheduleController::class, 'showForm'])->name('schedules');
+Route::get('/schedules/diff', [ScheduleController::class, 'showFormDiffDayTime'])->name('schedules.diff');
+Route::post('/schedules/diffdaystime', [ScheduleController::class, 'addScheduleWithDiffDayTime']);
 Route::post('/schedules', [ScheduleController::class, 'addSchedule'])->name('schedules');
 Route::get('/dashboard', [ScheduleController::class, 'dashboard'])->middleware(['auth'])->name('dashboard');
 

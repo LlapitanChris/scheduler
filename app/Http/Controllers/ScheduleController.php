@@ -102,8 +102,8 @@ class ScheduleController extends Controller
                    $intersectedTime[$day] = $time['timeStarts'];
                 }
             }
-
             if(count($intersectedTime) > 0) {
+            dd($intersectedTime);
                 foreach($intersectedTime as $day => $time){
                     echo "Can't create schedule, start time $time already created for $day";
                     echo "<br>";
@@ -141,6 +141,95 @@ class ScheduleController extends Controller
     	} else {
     		createSchedule($request);
     	}
+    }
+
+    public function showFormDiffDayTime(Request $request){
+        $days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+        $levels = Level::all();
+        $programs = Program::all();
+        $users = User::all();
+        return view('schedules.addschedulesdiffdaystimes', compact('days', 'users', 'levels', 'programs'));
+    }
+
+    public function addScheduleWithDiffDayTime(Request $request){
+        function createSchedule($newSchedule, $request){ 
+            foreach($newSchedule as $day => $times){
+        
+
+                $newSched = new Schedule;
+                $newSched->user_id = $request->teacher;
+                $newSched->level_id = $request->level;
+                $newSched->program_id = $request->program;
+                $newSched->day = $day;
+                foreach($times as $time ){
+                    $convertStartTime = strtotime($time['timeStarts']);
+                    $convertEndTime = strtotime($time['timeEnds']);
+                    if( $convertEndTime == $convertStartTime){
+                    echo "Cant't create schedule that has the same Ending Time. Schedule must be atleast 1 hr!";
+                    } elseif(date("H:i", $convertEndTime) <= date("H:i", $convertStartTime)){
+                    echo "Cant't create schedule that has the greater End time than Start time. Schedule must be atleast 1 hr!";
+                    } else {
+                        $newSched->timeStarts = date("H:i", $convertStartTime);
+                        $newSched->timeEnds =  date("H:i", $convertEndTime);
+                    }
+                }
+                $newSched->save();
+            }
+            return view('dashboard');
+        }
+
+        function intersectSchedule(array $newSched, array $existingSched, $request){
+            $intersectionResult = [];
+            $intersected = array_intersect_key($newSched, $existingSched); //for new sched lang to
+            foreach($intersected as $index1 => $values){
+                foreach($values as $index2 => $time){
+                    $intersectionResult[$index1]= array_intersect($existingSched[$index1][$index2], $time); 
+                }
+            }
+            return $intersectionResult;
+        }
+
+        $arrayKeys = array_keys($request->time);
+        // dd($arrayKeys);
+        $intersectArrayKeys = array_intersect($request->days, $arrayKeys);
+
+        $newSchedule = []; //newSched na iccreate
+        foreach ($request->time as $day => $time) {
+            foreach($intersectArrayKeys as $intersected){
+                if($day === $intersected){
+                     $convertedTime = ["timeStarts" => date("H:i", strtotime($time['startTime'])), "timeEnds" => date("H:i",strtotime($time['endTime']))];
+                    // dd($convertedTime);
+                    $newSchedule[$day][] = $convertedTime;
+                }
+            }   
+        }
+
+        $user = User::find($request->teacher);
+        $userSched = [];
+        foreach ($user->schedules as $data) {
+            if(array_key_exists($data->day, $newSchedule)){
+                $userSched[$data->day][] =  [ 'timeStarts' => date("H:i", strtotime($data->timeStarts)), 'timeEnds' => date("H:i", strtotime($data->timeEnds))];
+            }
+        }
+   
+        $intersectSched = intersectSchedule($newSchedule, $userSched, $request);
+        $intersectedTime = [];
+        foreach($intersectSched as $day => $time){
+            if(array_key_exists('timeStarts', $time)){
+               $intersectedTime[$day] = $time['timeStarts'];
+            }
+        }
+        if(count($intersectedTime) > 0) {
+            foreach($intersectedTime as $day => $time){
+                echo "Can't create schedule, start time $time already created for $day";
+                echo "<br>";
+            }
+        } else {
+            createSchedule($newSchedule, $request);
+
+        }
+
+
     }
 
     public function dashboard(Request $request){
