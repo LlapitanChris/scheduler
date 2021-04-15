@@ -22,44 +22,44 @@ class ProgramsTableSeeder extends Seeder
             0 => 
             array (
                 'id' => 1,
-                'programName' => 'Math 5',
-                'created_at' => '2021-04-02 00:16:04',
-                'updated_at' => '2021-04-02 00:16:04',
+                'programName' => 'Math 1',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
             1 => 
             array (
                 'id' => 2,
-                'programName' => 'Math 6',
-                'created_at' => '2021-04-02 00:16:04',
-                'updated_at' => '2021-04-02 00:16:04',
+                'programName' => 'Math 2',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
             2 => 
             array (
                 'id' => 3,
-                'programName' => 'AP',
-                'created_at' => '2021-04-02 00:16:54',
-                'updated_at' => '2021-04-02 00:16:54',
+                'programName' => 'Fil 1',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
             3 => 
             array (
                 'id' => 4,
-                'programName' => 'Fil 4',
-                'created_at' => '2021-04-02 00:16:54',
-                'updated_at' => '2021-04-02 00:16:54',
+                'programName' => 'Fil 3',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
             4 => 
             array (
                 'id' => 5,
-                'programName' => 'Math 3',
-                'created_at' => '2021-04-02 00:17:33',
-                'updated_at' => '2021-04-02 00:17:33',
+                'programName' => 'English 1',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
             5 => 
             array (
                 'id' => 6,
-                'programName' => 'Fil 1',
-                'created_at' => '2021-04-02 00:18:14',
-                'updated_at' => '2021-04-02 00:18:14',
+                'programName' => 'Science 1',
+                'created_at' => NULL,
+                'updated_at' => NULL,
             ),
         ));
         

@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 
-class LevelsTableSeeder extends Seeder
+class SectionsTableSeeder extends Seeder
 {
 
     /**
@@ -16,30 +16,34 @@ class LevelsTableSeeder extends Seeder
     {
         
 
-        \DB::table('levels')->delete();
+        \DB::table('sections')->delete();
         
-        \DB::table('levels')->insert(array (
+        \DB::table('sections')->insert(array (
             0 => 
             array (
-                'id' => 4,
-                'levelNo' => 1,
-                'levelName' => 'Kagawad',
+                'id' => 1,
+                'section_name' => 'Pogi',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
             1 => 
             array (
-                'id' => 5,
-                'levelNo' => 2,
-                'levelName' => 'Tanod',
+                'id' => 2,
+                'section_name' => 'Gwapo',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),
             2 => 
             array (
-                'id' => 6,
-                'levelNo' => 3,
-                'levelName' => 'Kapitan',
+                'id' => 3,
+                'section_name' => 'Gwapings',
+                'created_at' => NULL,
+                'updated_at' => NULL,
+            ),
+            3 => 
+            array (
+                'id' => 4,
+                'section_name' => 'Handsome',
                 'created_at' => NULL,
                 'updated_at' => NULL,
             ),

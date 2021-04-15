@@ -22,4 +22,8 @@ class Schedule extends Model
     public function level(){
     	return $this->belongsTo(Level::class);
     }
+
+    public function batch(){
+        return $this->belongsTo(Batch::class);
+    }
 }

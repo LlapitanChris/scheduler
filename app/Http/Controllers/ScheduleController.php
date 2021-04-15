@@ -9,6 +9,8 @@ use App\Models\Schedule;
 use App\Models\Program;
 use App\Models\Level;
 use App\Models\User;
+use App\Models\Section;
+use App\Models\Batch;
 
 class ScheduleController extends Controller
 {
@@ -17,7 +19,8 @@ class ScheduleController extends Controller
         $levels = Level::all();
         $programs = Program::all();
     	$users = User::all();
-    	return view('schedules.addschedule', compact('days', 'users', 'levels', 'programs'));
+        $sections = Section::all();
+    	return view('schedules.addschedule', compact('days', 'users', 'levels', 'programs', 'sections'));
     }
 
     public function addSchedule(Request $request){
@@ -148,15 +151,21 @@ class ScheduleController extends Controller
         $levels = Level::all();
         $programs = Program::all();
         $users = User::all();
-        return view('schedules.addschedulesdiffdaystimes', compact('days', 'users', 'levels', 'programs'));
+        $sections = Section::all();
+        return view('schedules.addschedulesdiffdaystimes', compact('days', 'users', 'levels', 'programs', 'sections'));
     }
 
     public function addScheduleWithDiffDayTime(Request $request){
         function createSchedule($newSchedule, $request){ 
+            // dd($newSchedule);
+            $newBatch = new Batch;
+            $newBatch->batch_name = $request->batch;
+            $newBatch->section_id = $request->section;
+            $newBatch->save();
+            
             foreach($newSchedule as $day => $times){
-        
-
                 $newSched = new Schedule;
+                $newSched->batch_id = $newBatch->id;
                 $newSched->user_id = $request->teacher;
                 $newSched->level_id = $request->level;
                 $newSched->program_id = $request->program;
@@ -250,6 +259,9 @@ class ScheduleController extends Controller
             }, $request->search)
             ->orWhere(function($query){
                 $query->select('name')->from('users')->whereColumn('users.id', 'user_id');
+            }, $request->search)
+            ->orWhere(function($query){
+                $query->select('batch_name')->from('batches')->whereColumn('batches.id', 'batch_id');
             }, $request->search)
             ->get();
         }

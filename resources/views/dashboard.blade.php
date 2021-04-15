@@ -30,7 +30,8 @@
                 <table class="table">
                   <thead>
                     <tr>
-                      <th scope="col">Teacher</th>
+                      {{-- <th scope="col">Teacher</th> --}}
+                      <th scope="col">Batch No.</th>
                       <th scope="col">Day</th>
                       <th scope="col">Time</th>
                       <th scope="col">Program</th>
@@ -41,7 +42,8 @@
                   <tbody>
                     @foreach($availableSchedules as $schedules)
                         <tr>
-                          <td>{{$schedules->user->name}}</td>
+                          <td>{{$schedules->batch->batch_name}}</td>
+                          {{-- <td>{{$schedules->user->name}}</td> --}}
                           <td>{{$schedules->day}}</td>
                           <td>{{$schedules->timeStarts}} to {{$schedules->timeEnds}}</td>
                           <td>{{$schedules->program->programName}}</td>

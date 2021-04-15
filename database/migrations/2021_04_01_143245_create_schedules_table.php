@@ -21,6 +21,7 @@ class CreateSchedulesTable extends Migration
             $table->time('timeEnds');
             $table->foreignId('level_id');
             $table->foreignId('program_id');
+            $table->foreignId('batch_id');
             $table->integer('slots')->default(20);
             $table->softDeletes();
             $table->timestamps();
@@ -36,6 +37,10 @@ class CreateSchedulesTable extends Migration
             $table->foreign('program_id')
             ->references('id')
             ->on('programs');
+
+            $table->foreign('batch_id')
+            ->references('id')
+            ->on('batches');
         });
     }
 
